@@ -1,0 +1,23 @@
+name: CI
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - run: sudo apt-get install -y nano
+
+      - name: Test highlighting files
+        run: |
+          sudo ln -s $(pwd)/nanorc /etc/.nano
+          TERM=xterm timeout 1s nano --rcfile ./.nanorc >/dev/null 2>error.txt || true
+          grep -v -e "Received SIGHUP or SIGTERM" -e "Too many errors from stdin" error.txt && false
+          echo "All seems good!"

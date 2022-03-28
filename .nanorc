@@ -1,0 +1,10 @@
+include /etc/.nano/*.nanorc
+set afterends
+set atblanks
+set autoindent
+set linenumbers
+set softwrap
+set tabsize 4
+set tabstospaces
+set wordchars "_"
+set numbercolor white
